@@ -8,9 +8,10 @@ const SearchBar = ({ className, value, onChange }) => {
     <Container className={className}>
       <SearchIcon src={IconSearch} />
       <Input
-        placeholder="Cat Too beautiful"
+        placeholder="Busca a tu compañero de vida."
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        readOnly // Añade la propiedad readOnly para desactivar la escritura
       />
     </Container>
   );
@@ -39,7 +40,10 @@ const Input = styled.input`
   height: 40px;
   color: black;
   border-radius: 12px;
+
+  ::placeholder {
+    color: black; // Cambia el color del texto del placeholder a negro
+  }
 `;
 
 export default styled(SearchBar)``;
-

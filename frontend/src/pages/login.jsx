@@ -1,43 +1,86 @@
-import styled from 'styled-components'
-import { Button } from '../components/Button'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import styled from 'styled-components';
+import { Button } from '../components/Button';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Login = () => {
-  const [usuario, setUsuario] = useState("")
-  const [contraseña, setContraseña] = useState("")
+  const [usuario, setUsuario] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ usuario, password }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          // La solicitud fue exitosa
+          return response.json();
+        } else {
+          // La solicitud falló
+          throw new Error('Error al iniciar sesión. Código de estado: ' + response.status);
+        }
+      })
+      .then(data => {
+        // Manejar la respuesta de la API exitosa
+        console.log(data);
+      })
+      .catch(error => {
+        // Manejar errores de la solicitud
+        setError(error.message);
+      });
+  };
 
   return (
     <Container>
       <div className='mainbox'>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
-            <p>Usuario: </p>
-            <input value={usuario} onChange={setUsuario} placeholder='ingrese tu usuario'/>
+            <p>Usuario:</p>
+            <input
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+              placeholder='Ingrese tu usuario'
+              style={{ color: usuario ? 'black' : '' }}
+            />
           </div>
           <div>
-            <p>Contraseña: </p>
-            <input value={contraseña} onChange={setContraseña} placeholder='ingrese contraseña'/>
+            <p>Password:</p>
+            <input
+              type='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Ingrese contraseña'
+              style={{ color: password ? 'black' : '' }}
+            />
           </div>
           <div>
-            <Button title='Login'/>
+            <Button type='submit' title='Login' />
           </div>
+          {error && <p>{error}</p>}
         </form>
         <div className='subbox'>
           <h3>Bienvenido</h3>
           <div>
-            <Link to='/newpassword'>¿Te olvidaste tu contraseña?</Link>
+            <Link to='/newpassword'>¿Olvidaste tu contraseña?</Link>
             <p>
-              ¿No tienes cuenta {' '}
-              <Link>Registrate ahora</Link>
+              ¿No tienes una cuenta?{' '}
+              <Link to='/registrar'>Regístrate ahora</Link>
             </p>
-            <Link to='/'>volver</Link>
+            <Link to='/'>Volver</Link>
           </div>
         </div>
       </div>
     </Container>
-  )
-}
+  );
+};
+
 const Container = styled.div`
   height: 100vh;
   display: flex;
@@ -47,15 +90,16 @@ const Container = styled.div`
 
   .mainbox {
     padding: 2rem;
-    background-color: #FFA500;
+    background-color: #ffa500;
     border-radius: 12px;
     display: flex;
     flex-wrap: wrap-reverse;
     gap: 50px;
+
     form {
       border-radius: 12px;
       padding: 1rem;
-      background-color: #A9A9A7;
+      background-color: #a9a9a7;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -66,16 +110,17 @@ const Container = styled.div`
         width: 300px;
         border-radius: 12px;
         padding-left: 10px;
-        background-color: #EFF0F6;
-
+        background-color: #eff0f6;
       }
+
       div > button {
         margin-top: 30px;
       }
     }
-    @media (max-width: 800px)  {
+
+    @media (max-width: 800px) {
       form {
-        width: 100%
+        width: 100%;
       }
     }
   }
@@ -83,13 +128,16 @@ const Container = styled.div`
   .subbox {
     text-align: center;
     color: #000;
+
     h3 {
       font-size: 2em;
     }
-    @media (max-width: 800px)  {
-      width: 100%
+
+    @media (max-width: 800px) {
+      width: 100%;
     }
   }
+};
 `
 
-export default Login
+export default Login;

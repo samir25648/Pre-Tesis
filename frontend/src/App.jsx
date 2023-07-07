@@ -7,6 +7,7 @@ import NewPassword from './pages/NewPassword'
 import Register from './pages/Register'
 import RegistroMascotas from './pages/registromascotas'
 import Pagar from './pages/pagar'
+import Nosotros from './pages/nosotros'
 
 function App() {
   const {pathname} = useLocation()
@@ -26,6 +27,7 @@ function App() {
       }
       <Routes>
         <Route path="/" element={<MainPage/>}/>
+        <Route path="/nosotros" element={<Nosotros/>}/>
         <Route path="/inscripcionesdic" element={<Inicio/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/newpassword" element={<NewPassword/>}/>

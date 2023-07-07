@@ -17,14 +17,22 @@ const Container = styled.div`
     width: 70%;
   }
 
-  boxtitle {
-    font-size: 2rem
+  .boxtitle {
+    font-size: 2rem;
     margin-bottom: 3rem;
   }
 
   .two_box {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 19rem;
+    margin-bottom: 0rem;
+  }
+
+  .two_box > h2 {
+    text-align: center;
   }
 
   .container_info_box {
@@ -51,7 +59,7 @@ const Container = styled.div`
         width: 150px;
       }
       p {
-        font-weight: bold
+        font-weight: bold;
       }
       span {
         margin: 0 40px;
@@ -59,8 +67,15 @@ const Container = styled.div`
         text-align: center;
       }
     }
-  }
 
+    .infBox:first-child {
+      text-align: center;
+    }
+
+    .infBox:nth-child(3) {
+      order: -1;
+    }
+  }
   .container_method_payment {
     display: flex;
     flex-direction: column;
@@ -91,10 +106,9 @@ const Container = styled.div`
     }
   }
 
-  .button_two{
+  .button_two {
     background-color: #f9b545;
     height: 32px;
-    
     color: black;
     border-radius: 8px;
     padding: 8px 15px;
@@ -102,9 +116,10 @@ const Container = styled.div`
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(206 150 57);
+      background-color: rgb(206, 150, 57);
     }
   }
+
 `
 
 const Inicio = () => {
@@ -112,43 +127,50 @@ const Inicio = () => {
     <Container>
       <div className="main_box">
         <h2 className="boxtitle">Inscribe a tu mascota en DIC!!</h2>
-        <p>PeTec es pasión y amor por los perros ❤ <br/>
-Es por eso que al hacer el registro pueda mantener viva tu API favorita.</p>
+        <p>PeTec es pasión y amor por los perros ❤ <br />
+          Es por eso que al hacer el registro pueda mantener viva tu API favorita.</p>
         <div className="two_box">
           <h2>¿Estás listo?</h2>
           <h2>¿Quieres inscribir a tu perro?</h2>
+          <h2>Beneficios</h2>
         </div>
         <div className="container_info_box">
           <div className="infBox">
-            <img src={PerroTriste} className='infBox_image'/>
-            <p>Al SI tener DIC</p>
-            <span>Acá podrás visualizar cuales son las ventajas de su mascota si tiene DIC (Documento de Identificación Canina)</span>
-          </div>
-          <div className="infBox">
-            <p>Anim'all Services</p>
+            <p>Ventajas y Desventajas
+              de DIC</p>
             <span>Tú mascota estará registrada y al momento que se pierda, avisará o alertará a todas los usuarios,  veterinarias y perreras de la zona de Santa Anita la información dada osea su DIC</span>
           </div>
           <div className="infBox">
-            <img src={PerroFeliz} className='infBox_image'/>
-            <p>Al NO tener DIC</p>
-            <span>Acá podrás visualizar cuales son las desventajas de su mascota al no tener DIC (Documento de Identificación Canina)</span>
+            <img src={PerroFeliz} className='infBox_image' />
+            <p>Al SI TENER DIC</p>
+            <span>Acá podrás visualizar cuáles son las ventajas de tener el Documento de Identificación Canina (DIC) para tu mascota.</span>
+          </div>
+          <div className="infBox">
+            <img src={PerroTriste} className='infBox_image' />
+            <p>Al NO TENER DIC</p>
+            <span>Acá podrás visualizar cuáles son las desventajas de no tener el Documento de Identificación Canina (DIC) para tu mascota.</span>
+          </div>
+          <div className="infBox"> 
+          <center><p>Beneficios al inscribir a tu mascota</p></center>   
+            <span>1. En tu primer mes de suscripción te regalaremos productos para tus animales registrado, no pierdas esta gran oportunidad.</span>
+            <span>2. La inscipción tendrá un costo de tan solo 10 soles.</span>
           </div>
         </div>
         <h2>Otros métodos de pago</h2>
         <div className="container_method_payment">
           <div className='box'>
-            <div >
-              <img src={Visa}/>
+            <div>
+              <img src={Visa} alt="Visa" />
               <h3>Visa</h3>
             </div>
-            <Link to='/pagar' className='button_two'>Pague</Link>
+            <Link to='/pagar' className='button_two'>Pagar</Link>
           </div>
           <div className='box'>
             <div>
-              <img src={Mastercad}/>
-              <h3>Mastercad</h3>
+              <img src={Mastercad} alt="Mastercard" />
+              <h3>Mastercard</h3>
             </div>
-            <Link to='/pagar' className='button_two'>Pague</Link>
+            <Link to='/pagar' className='button_two'>Pagar</Link>
           </div>
         </div>
       </div>
@@ -156,4 +178,4 @@ Es por eso que al hacer el registro pueda mantener viva tu API favorita.</p>
   )
 }
 
-export default Inicio
+export default Inicio;

@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { Button } from '../components/Button';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fadeIn, slideInDown, bounce } from 'react-animations';
 
 const Register = () => {
@@ -9,9 +10,36 @@ const Register = () => {
   const [usuario, setUsuario] = useState('');
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = () => {
-    console.log({ nombre, apellido, usuario, correo, contraseña });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch('http://localhost:3000/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ nombre, apellido, usuario, correo, contraseña }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          // La solicitud fue exitosa
+          return response.json();
+        } else {
+          // La solicitud falló
+          throw new Error('Error al registrar cuenta');
+        }
+      })
+      .then((data) => {
+        // Manejar la respuesta de la API exitosa
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError('Error al realizar la solicitud');
+      });
+      
   };
 
   return (
@@ -21,29 +49,61 @@ const Register = () => {
           <div className="formbox">
             <div className="animated-form-element">
               <p>Nombre:</p>
-              <input value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Ingrese su nombre" />
+              <input
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Ingrese su nombre"
+                required
+              />
             </div>
             <div className="animated-form-element">
               <p>Apellido</p>
-              <input value={apellido} onChange={e => setApellido(e.target.value)} placeholder="Ingresa su apellido" />
+              <input
+                value={apellido}
+                onChange={(e) => setApellido(e.target.value)}
+                placeholder="Ingresa su apellido"
+                required
+              />
             </div>
             <div className="animated-form-element">
               <p>Usuario:</p>
-              <input value={usuario} onChange={e => setUsuario(e.target.value)} placeholder="Ingresa su usuario" />
+              <input
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)}
+                placeholder="Ingresa su usuario"
+                required
+              />
             </div>
           </div>
           <div className="formbox">
             <div className="animated-form-element">
               <p>Correo:</p>
-              <input value={correo} onChange={e => setCorreo(e.target.value)} placeholder="Ingrese su correo" />
+              <input
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
+                placeholder="Ingrese su correo"
+                required
+              />
             </div>
             <div className="animated-form-element">
               <p>Contraseña</p>
-              <input type="password" value={contraseña} onChange={e => setContraseña(e.target.value)} placeholder="Ingrese su contraseña" />
+              <input
+                type="password"
+                value={contraseña}
+                onChange={(e) => setContraseña(e.target.value)}
+                placeholder="Ingrese su contraseña"
+                required
+              />
             </div>
+            <div className="button-container">
             <Button title="Crear Cuenta" width="100%" />
-            <Button title="Volver" width="100%" type="button" onClick={() => console.log('Volver')} />
+            <Link to="/" className="link-button">
+              <Button title="Volver" width="100%" />
+            </Link>
           </div>
+
+          </div>
+          {error && <p>{error}</p>}
         </form>
       </div>
     </Container>

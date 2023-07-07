@@ -15,16 +15,15 @@ const NavBar = ({ className }) => {
           <LogoImage src={Logo} alt='logo' className="logo_image"/>
         </Link>
         <div className="nav_items">
-          <NavLink to="/" animationDelay="0s">Inicio</NavLink>
-          <NavLink to="/adoptar" animationDelay="0.1s">Adoptar</NavLink>
-          <NavLink to="/inscripcionesdic" animationDelay="0.2s">Inscripción DIC</NavLink>
-          <NavLink to="/registrodeadopcion" animationDelay="0.3s">Registro de mascotas en adopcoin</NavLink>
-          <NavLink to="/registromascotas" animationDelay="0.4s">Perros con DIC</NavLink>
+          <NavLink to="/" animationDelay="0s" className="nav_link_large">Inicio</NavLink>
+          <NavLink to="/inscripcionesdic" animationDelay="0.2s" className="nav_link_large">Inscripción DIC</NavLink>
+          <NavLink to="/registrodeadopcion" animationDelay="0.3s" className="nav_link_large">Poner Perros en Adopción</NavLink>
+          <NavLink to="/nosotros" animationDelay="0.4s" className="nav_link_large">Sobre Nosotros</NavLink>
         </div>
       </div>
       <div className="navbar_secbox">
-        <NavLink to="/login" animationDelay="0.5s">Acceder</NavLink>
-        <NavLink to="/registrar" animationDelay="0.6s">Crear Cuenta</NavLink>
+        <NavLink to="/login" animationDelay="0.5s" className="nav_link_large">Acceder</NavLink>
+        <NavLink to="/registrar" animationDelay="0.6s" className="nav_link_large">Crear Cuenta</NavLink>
       </div>
     </Nav>
   );
@@ -64,6 +63,12 @@ const NavLink = styled(Link)`
     color: #555555;
   }
 
+  &.nav_link_large {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #101010;
+  }
+
   @media (max-width: 800px) {
     margin-right: 0;
   }
@@ -101,4 +106,4 @@ export default styled(NavBar)`
       margin-top: 1rem;
     }
   }
-`;
+  `;
