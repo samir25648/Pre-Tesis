@@ -39,7 +39,6 @@ const Register = () => {
         console.log(error);
         setError('Error al realizar la solicitud');
       });
-      
   };
 
   return (
@@ -96,12 +95,11 @@ const Register = () => {
               />
             </div>
             <div className="button-container">
-            <Button title="Crear Cuenta" width="100%" />
-            <Link to="/" className="link-button">
-              <Button title="Volver" width="100%" />
-            </Link>
-          </div>
-
+              <Button title="Crear Cuenta" width="100%" />
+              <Link to="/" className="link-button">
+                <Button title="Volver" width="100%" />
+              </Link>
+            </div>
           </div>
           {error && <p>{error}</p>}
         </form>
@@ -145,6 +143,7 @@ const Container = styled.div`
         border-radius: 12px;
         padding-left: 10px;
         background-color: #eff0f6;
+        color: black;
 
         @media (max-width: 500px) {
           width: 100%;

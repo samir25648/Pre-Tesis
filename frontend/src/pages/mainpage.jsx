@@ -91,9 +91,11 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    gap: 30px;
+    gap: 10px;
     justify-content: space-around;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    max-width: 100%;
+    align-items: center;
 
     div {
       text-align: center;
@@ -105,15 +107,25 @@ const Container = styled.div`
   }
 
   .footer_logo {
-    width: 240px;
-    height: 120px;
+    width: 190px;
+    height: 95px;
+    max-width: 100%;
+    margin-top: 3rem;
   }
 
   .footer_socials {
     margin-top: 1rem;
     display: flex;
-    gap: 20px;
+    gap: 10px;
+    font-size: 18px;
+  }
 
+  .footer_text {
+    color: white;
+    font-size: 12px;
+    margin-top: 1rem;
+    text-align: center;
+    flex-grow: 1;
   }
 `;
 
@@ -147,24 +159,25 @@ const MainPage = () => {
       <div className='footer'>
         <img src={Logo} className='footer_logo'/>
         <div>
-          <span>Acceso Rápido</span>
-          <p>Inicio</p>
-          <p>Poner perro en Adopción</p>
-          <p>Inscripción DIC</p>
+          <span style={{ fontSize: "14px" }}>Acceso Rápido</span>
+          <p style={{ fontSize: "12px" }}>Inicio</p>
+          <p style={{ fontSize: "12px" }}>Poner perro en Adopción</p>
+          <p style={{ fontSize: "12px" }}>Inscripción DIC</p>
         </div>
         <div>
-          <span>Acerca de nosotros</span>
-          <p>Sobre Nosotros</p>
+          <span style={{ fontSize: "14px" }}>Acerca de nosotros</span>
+          <p style={{ fontSize: "12px" }}>Sobre Nosotros</p>
         </div>
         <div>
-          <span>Síguenos!</span>
+          <span style={{ fontSize: "14px" }}>Síguenos!</span>
           <div className='footer_socials'>
-            <img src={Fb}/>
-            <img src={Twitter}/>
-            <img src={Instagram}/>
+            <img src={Fb} style={{ width: "20px", height: "20px" }}/>
+            <img src={Twitter} style={{ width: "20px", height: "20px" }}/>
+            <img src={Instagram} style={{ width: "20px", height: "20px" }}/>
           </div>
         </div>
       </div>
+      <p className='footer_text'>&copy; 2023. PETEC</p>
     </Container>
   );
 };

@@ -15,6 +15,10 @@ const Container = styled.div`
     margin: auto;
     padding-bottom: 7rem;
     width: 70%;
+
+    @media (max-width: 768px) {
+      width: 90%;
+    }
   }
 
   .boxtitle {
@@ -29,6 +33,12 @@ const Container = styled.div`
     flex-wrap: wrap;
     gap: 19rem;
     margin-bottom: 0rem;
+
+    @media (max-width: 768px) {
+      gap: 4rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   .two_box > h2 {
@@ -49,7 +59,6 @@ const Container = styled.div`
       background-color: #FFFFFF;
       align-items: center;
       color: #2E4960;
-
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -58,13 +67,26 @@ const Container = styled.div`
         border-radius: 12px;
         width: 150px;
       }
+
       p {
         font-weight: bold;
       }
+
       span {
         margin: 0 40px;
         font-size: 14px;
         text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        width: 100%;
+        min-height: 0;
+        padding: 2rem;
+        text-align: center;
+
+        .infBox_image {
+          width: 120px;
+        }
       }
     }
 
@@ -76,6 +98,7 @@ const Container = styled.div`
       order: -1;
     }
   }
+
   .container_method_payment {
     display: flex;
     flex-direction: column;
@@ -103,6 +126,22 @@ const Container = styled.div`
         width: 150px;
         height: 100px;
       }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        text-align: center;
+
+        div {
+          flex-direction: column;
+        }
+
+        img {
+          width: 100px;
+          height: 80px;
+        }
+      }
     }
   }
 
@@ -119,8 +158,7 @@ const Container = styled.div`
       background-color: rgb(206, 150, 57);
     }
   }
-
-`
+`;
 
 const Inicio = () => {
   return (
@@ -136,24 +174,23 @@ const Inicio = () => {
         </div>
         <div className="container_info_box">
           <div className="infBox">
-            <p>Ventajas y Desventajas
-              de DIC</p>
-            <span>Tú mascota estará registrada y al momento que se pierda, avisará o alertará a todas los usuarios,  veterinarias y perreras de la zona de Santa Anita la información dada osea su DIC</span>
+            <p>Ventajas y Desventajas de DIC</p>
+            <span>Tu mascota estará registrada y al momento que se pierda, avisará o alertará a todos los usuarios, veterinarias y perreras de la zona de Santa Anita la información dada o sea su DIC</span>
           </div>
           <div className="infBox">
-            <img src={PerroFeliz} className='infBox_image' />
-            <p>Al SI TENER DIC</p>
+            <img src={PerroFeliz} className='infBox_image' alt="Perro Feliz" />
+            <p>Al TENER DIC</p>
             <span>Acá podrás visualizar cuáles son las ventajas de tener el Documento de Identificación Canina (DIC) para tu mascota.</span>
           </div>
           <div className="infBox">
-            <img src={PerroTriste} className='infBox_image' />
+            <img src={PerroTriste} className='infBox_image' alt="Perro Triste" />
             <p>Al NO TENER DIC</p>
             <span>Acá podrás visualizar cuáles son las desventajas de no tener el Documento de Identificación Canina (DIC) para tu mascota.</span>
           </div>
-          <div className="infBox"> 
-          <center><p>Beneficios al inscribir a tu mascota</p></center>   
-            <span>1. En tu primer mes de suscripción te regalaremos productos para tus animales registrado, no pierdas esta gran oportunidad.</span>
-            <span>2. La inscipción tendrá un costo de tan solo 10 soles.</span>
+          <div className="infBox">
+            <p>Beneficios al inscribir a tu mascota</p>
+            <span>1. En tu primer mes de suscripción te regalaremos productos para tus animales registrados, no pierdas esta gran oportunidad.</span>
+            <span>2. La inscripción tendrá un costo de tan solo 10 soles.</span>
           </div>
         </div>
         <h2>Otros métodos de pago</h2>

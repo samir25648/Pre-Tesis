@@ -1,10 +1,16 @@
-import styled from 'styled-components'
-import { Button } from '../components/Button'
-import { useState } from 'react'
+import styled from 'styled-components';
+import { Button } from '../components/Button';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { fadeIn, slideInDown, bounce } from 'react-animations';
 
 const NewPassword = () => {
   const [contraseña, setContraseña] = useState("")
   const [newcontraseña, setNewContraseña] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   return ( 
     <Container>
