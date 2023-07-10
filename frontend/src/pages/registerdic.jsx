@@ -62,7 +62,7 @@ const RegisterDic = () => {
           </div>
         </form>
         <Link to='/registromascotasdic' className="button_añadirdic">AÑADIR</Link>
-        <Link to='/registromascotasdic' className="button_verdic">VER DIC</Link>
+        <Link to='/registromascotas' className="button_verdic">VER DIC</Link>
         <Link to='/' className="button_iniciodic">INICIO</Link>
       </div>
       <div className="tablebox">
@@ -195,21 +195,6 @@ const Container = styled.div`
       .table td:last-child {
         text-align: right;
       }
-      
-    
-    .button_adoptar {
-      background-color: #49be25;
-      height: 32px;
-      color: black;
-      border-radius: 8px;
-      padding: 5px 30px;
-      border: none;
-      cursor: pointer;
-  
-      &:hover {
-        background-color: rgb(0, 144, 255, 1);
-      }
-    }
   }
 
   .nav_box {

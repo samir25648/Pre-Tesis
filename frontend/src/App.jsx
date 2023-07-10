@@ -45,7 +45,7 @@ function App() {
         <Route path='/registerdic' element={<RegisterDic/>}/>
         <Route path='/perroadoptado' element={<PerroAdoptado/>}/>
         <Route path='/registromascotasdic' element={<RegistroMascotasDic/>}/>
-      </Routes>
+        </Routes>
     </div>
     </>
   )

@@ -31,7 +31,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 19rem;
+    gap: 10rem;
     margin-bottom: 0rem;
 
     @media (max-width: 768px) {
@@ -207,7 +207,7 @@ const Inicio = () => {
               <img src={Mastercad} alt="Mastercard" />
               <h3>Mastercard</h3>
             </div>
-            <Link to='/' className='button_two'>Pagar</Link>
+            <Link to='/pagar' className='button_two'>Pagar</Link>
           </div>
         </div>
       </div>
