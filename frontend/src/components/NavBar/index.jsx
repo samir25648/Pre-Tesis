@@ -17,7 +17,7 @@ const NavBar = ({ className }) => {
         <div className="nav_items">
           <NavLink to="/" animationDelay="0s" className="nav_link">Inicio</NavLink>
           <NavLink to="/inscripcionesdic" animationDelay="0.2s" className="nav_link">Inscripción DIC</NavLink>
-          <NavLink to="/vermas" animationDelay="0.3s" className="nav_link">Poner Perros en Adopción</NavLink>
+          <NavLink to="/addperroadopcion" animationDelay="0.3s" className="nav_link">Poner Perros en Adopción</NavLink>
           <NavLink to="/nosotros" animationDelay="0.4s" className="nav_link">Sobre Nosotros</NavLink>
         </div>
       </div>

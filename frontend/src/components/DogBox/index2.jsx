@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import DogText from "../../assets/dog2.png";
+import DogText from "../../assets/dog1.png";
 import { Link } from "react-router-dom";
 
-const DogBox = ({ nombre, descripcion, tags }) => {
+const Dog2Box = ({ nombre, descripcion, tags }) => {
   const showAlert = () => {
-    alert("¡¡Perro adoptado!! Contacte con el número del dueño");
+    alert("Se le ha advertido a todas las veterinarias y guarderias de la perdida");
   };
 
   return (
@@ -21,8 +21,7 @@ const DogBox = ({ nombre, descripcion, tags }) => {
         </div>
         <h1></h1>
         <ButtonsContainer>
-          <Link className="button_adoptame" onClick={showAlert}>ADOPTAME :)</Link>
-          <Link to='/inscripcionesdic' className="button_inscribir">INSCRIBIR DIC</Link>
+          <Link className="button_perdido" onClick={showAlert}>¡¡¡PERDIDO!!!</Link>
         </ButtonsContainer>
         <h1></h1>
       </div>
@@ -70,8 +69,8 @@ const Container = styled.div`
       }
     }
 
-    .button_inscribir {
-      background-color: #FF8739;
+    .button_perdido {
+      background-color: #EE2020;
       height: 32px;
       color: black;
       border-radius: 8px;
@@ -80,7 +79,7 @@ const Container = styled.div`
       cursor: pointer;
 
       &:hover {
-        background-color: rgb(255, 243, 57);
+        background-color: rgb(255, 126, 126);
       }
     }
   }
@@ -93,4 +92,4 @@ const ButtonsContainer = styled.div`
   gap: 10px;
 `;
 
-export default DogBox;
+export default Dog2Box;

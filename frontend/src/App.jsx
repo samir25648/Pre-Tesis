@@ -8,7 +8,11 @@ import Register from './pages/Register'
 import RegistroMascotas from './pages/registromascotas'
 import Pagar from './pages/pagar'
 import Nosotros from './pages/nosotros'
+import AddPerroAdopcion from './pages/addperroadopcion'
 import VerMas from './pages/vermas'
+import RegisterDic from './pages/registerdic'
+import PerroAdoptado from './pages/perroadoptado'
+import RegistroMascotasDic from './pages/registromascotasdic'
 
 function App() {
   const {pathname} = useLocation()
@@ -36,7 +40,11 @@ function App() {
         <Route path="/registromascotas" element={<RegistroMascotas/>}/>
         <Route path="/pagar" element={<Pagar/>}/>
         <Route path="/*" element={<MainPage/>}/>
+        <Route path="/addperroadopcion" element={<AddPerroAdopcion/>}/>
         <Route path="/vermas" element={<VerMas/>}/>
+        <Route path='/registerdic' element={<RegisterDic/>}/>
+        <Route path='/perroadoptado' element={<PerroAdoptado/>}/>
+        <Route path='/registromascotasdic' element={<RegistroMascotasDic/>}/>
       </Routes>
     </div>
     </>

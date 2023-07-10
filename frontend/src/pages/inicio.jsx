@@ -207,7 +207,7 @@ const Inicio = () => {
               <img src={Mastercad} alt="Mastercard" />
               <h3>Mastercard</h3>
             </div>
-            <Link to='/pagar' className='button_two'>Pagar</Link>
+            <Link to='/' className='button_two'>Pagar</Link>
           </div>
         </div>
       </div>

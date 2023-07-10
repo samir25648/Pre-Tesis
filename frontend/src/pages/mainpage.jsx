@@ -8,6 +8,8 @@ import Instagram from '../assets/instagram.svg';
 import Logo from '../assets/logo.png';
 import { useState } from 'react';
 import Map from '../components/Map';
+import VerMas from './vermas';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -64,6 +66,19 @@ const Container = styled.div`
       p {
         color: black;
         margin-bottom: 1rem; /* Added margin */
+      }
+    }
+    .button_buscar {
+      background-color: #49be25;
+      height: 32px;
+      color: black;
+      border-radius: 8px;
+      padding: 5px 30px;
+      border: none;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: rgb(185, 53, 255);
       }
     }
   }
@@ -149,7 +164,8 @@ const MainPage = () => {
             value={search}
             onChange={setSearch}
           />
-          <Button title='Buscar' width='150px' onClick={handleSearch}/>
+          <h1></h1>
+          <Link to='/vermas' className='button_buscar'>Buscar</Link>
         </div>
       </div>
       <div className='three_box'>

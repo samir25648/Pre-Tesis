@@ -4,6 +4,7 @@ import { useState } from 'react'
 import MasterCard from '../assets/mastercad.png'
 import Visa from '../assets/visa.png'
 import NotaAdesiva from '../assets/notaadesiva.png'
+import { Link } from 'react-router-dom'
 
 const Pagar = () => {
   const [nombre, setNombre] = useState("")
@@ -23,15 +24,15 @@ const Pagar = () => {
           <div className='formbox'>
             <div>
               <p>Numero de tarjeta *</p>
-              <input value={nombre} onChange={setNombre} placeholder='Ingrese N° de tarjeta'/>
+              <input value={nombre} onChange={setNombre} placeholder='Ingrese N° de tarjeta' required/>
             </div>
             <div>
               <p>Fecha de Caducidad *</p>
-              <input value={apellido} onChange={setApellido} placeholder='MM/AA'/>
+              <input value={apellido} onChange={setApellido} placeholder='MM/AA' required/>
             </div>
             <div>
               <p>Codigo de Verificacion * </p>
-              <input value={usuario} onChange={setUsuario} placeholder='CVC'/>
+              <input value={usuario} onChange={setUsuario} placeholder='CVC' required/>
             </div>
           </div>
           <div className='tarjetas'>
@@ -48,8 +49,7 @@ const Pagar = () => {
             <img src={NotaAdesiva} alt='notaadesiva' width={300}/>
           </div>
         </form>
-        <Button title='Inscribir' width='200px'/>
-      </div>
+        <Link to='/registerdic' className='inscribir' width='200px'>INSCRIBIR</Link>       </div>
     </Container>
   )
 }
@@ -103,14 +103,25 @@ const Container = styled.div`
         }
       }
 
-      button {
-        margin-top: 30px;
-      }
+      
       @media (max-width: 500px)  {
         width: 80%;
         .formbox {
           width: 100%;
         }
+      }
+    }
+    .inscribir {
+      background-color: #49be25;
+      height: 32px;
+      color: black;
+      border-radius: 8px;
+      padding: 5px 30px;
+      border: none;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: rgb(0, 144, 255, 1);
       }
     }
   }

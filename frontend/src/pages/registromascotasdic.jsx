@@ -1,10 +1,10 @@
 import styled from "styled-components"
 import SearchBar from "../components/SearchBar"
 import MainBg from '../assets/mainbg.png'
-import DogBox from "../components/DogBox/index"
+import Dog2Box from "../components/DogBox/index2"
 import { useState } from "react"
 
-const RegistroMascotas = () => {
+const RegistroMascotasDic = () => {
   const [search, setSearch] = useState("")
 
   return (
@@ -16,7 +16,7 @@ const RegistroMascotas = () => {
             onChange={setSearch}
           />
         </div>
-        <DogBox 
+        <Dog2Box 
           nombre='Kaiser' 
           descripcion={'kaiser es un perro de raza Golden Retriever tiene 3 años Sus ojos son color negros. Siempre lleva su collar con su nombre y su pelaje es eondulado'}
           tags={['Perro', 'Macho', '941387498', 'Golden Retriever', 'Vacunado', '3 años']}
@@ -42,4 +42,4 @@ const Container = styled.div`
 
 `
 
-export default RegistroMascotas
+export default RegistroMascotasDic
