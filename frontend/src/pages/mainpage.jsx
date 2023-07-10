@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchBar from '../components/SearchBar';
 import MainBg from '../assets/mainbg.png';
 import Fb from '../assets/facebook.svg';
-import Twitter from '../assets/twitter.svg';
+
 import Instagram from '../assets/instagram.svg';
 import Logo from '../assets/logo.png';
 import { useState } from 'react';
@@ -176,19 +176,18 @@ const MainPage = () => {
         <img src={Logo} className='footer_logo'/>
         <div>
           <span style={{ fontSize: "14px" }}>Acceso Rápido</span>
-          <p style={{ fontSize: "12px" }}>Inicio</p>
-          <p style={{ fontSize: "12px" }}>Poner perro en Adopción</p>
-          <p style={{ fontSize: "12px" }}>Inscripción DIC</p>
+          <p><Link to={"/"}>Inicio</Link></p>
+          <p><Link to={"/addperroadopcion"}>Poner perro en Adopción</Link></p>
+          <p><Link to={"/inscripcionesdic"}>Inscripción DIC</Link></p>
         </div>
         <div>
           <span style={{ fontSize: "14px" }}>Acerca de nosotros</span>
-          <p style={{ fontSize: "12px" }}>Sobre Nosotros</p>
+          <p><Link to={"/nosotros"}>Sobre Nosotros</Link></p>
         </div>
         <div>
           <span style={{ fontSize: "14px" }}>Síguenos!</span>
           <div className='footer_socials'>
             <img src={Fb} style={{ width: "20px", height: "20px" }}/>
-            <img src={Twitter} style={{ width: "20px", height: "20px" }}/>
             <img src={Instagram} style={{ width: "20px", height: "20px" }}/>
           </div>
         </div>

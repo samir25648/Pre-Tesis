@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import Fb from '../assets/facebook.svg';
-import Twitter from '../assets/twitter.svg';
 import Instagram from '../assets/instagram.svg';
 import Logo from '../assets/logo.png';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -60,6 +60,7 @@ const MainBox = styled.div`
       margin-bottom: 1rem; /* Added margin */
     }
   }
+  
 `;
 
 const ThreeBox = styled.div`
@@ -87,8 +88,8 @@ const Footer = styled.div`
 `;
 
 const FooterLogo = styled.img`
-  width: 240px;
-  height: 120px;
+  width: 190px;
+  height: 95px;
 `;
 
 const FooterSocials = styled.div`
@@ -97,9 +98,16 @@ const FooterSocials = styled.div`
   gap: 20px;
 `;
 
+const FooterText = styled.p`
+  color: white;
+  font-size: 16px;
+  margin-top: 1rem;
+  text-align: center;
+  flex-grow: 1;
+`;
 
 const Nosotros = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const handleSearch = () => {
     console.log(search);
@@ -109,7 +117,7 @@ const Nosotros = () => {
     <Container>
       <Footer>
         <h1>SOBRE NOSOTROS</h1>
-        <FooterLogo className="main_logo" src={Logo} />
+        <FooterLogo className="main_logo" src={Logo} alt="Logo" />
       </Footer>
       <MainBox>
         <div style={{ flex: 1 }}>
@@ -142,28 +150,27 @@ const Nosotros = () => {
           />
         </div>
       </MainBox>
-      
       <Footer>
-        <FooterLogo className="footer_logo" src={Logo} />
+        <FooterLogo className="footer_logo" src={Logo} alt="Logo" />
         <div>
           <span>Acceso Rápido</span>
-          <p>Inicio</p>
-          <p>Poner perro en Adopción</p>
-          <p>Inscripción DIC</p>
+          <p><Link to="/">Inicio</Link></p>
+          <p><Link to="/addperroadopcion">Poner perro en Adopción</Link></p>
+          <p><Link to="/inscripcionesdic">Inscripción DIC</Link></p>
         </div>
         <div>
           <span>Acerca de nosotros</span>
-          <p>Sobre Nosotros</p>
+          <p><Link to="/nosotros">Sobre Nosotros</Link></p>
         </div>
         <div>
           <span>Síguenos!</span>
           <FooterSocials>
-            <img src={Fb} />
-            <img src={Twitter} />
-            <img src={Instagram} />
+            <img src={Fb} alt="Facebook" />
+            <img src={Instagram} alt="Instagram" />
           </FooterSocials>
         </div>
       </Footer>
+      <FooterText>&copy; 2023. PETEC</FooterText>
     </Container>
   );
 };
