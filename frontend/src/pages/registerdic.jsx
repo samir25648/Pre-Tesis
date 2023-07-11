@@ -1,97 +1,74 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Table } from "react-bootstrap"
 import { Button } from "../components/Button"
 import { Link } from "react-router-dom"
-
-const data = [
-  { id: 1, raza: "Pastos Alemán", tamaño: "65cm",genero: "masculino", años: 6, vacunado: "si", hogar: "si" },
-  { id: 2, raza: "Pastos Alemán", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-]
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterDic = () => {
-  const [perros, setPerros] = useState(data)
+  const user = JSON.parse(localStorage.getItem('user'))
+  const navigate = useNavigate()
+  const [perros, setPerros] = useState([])
   const [form, setForm] = useState({})
+
+  useEffect(() => {
+    fetch('http://localhost:3000/dogadoption')
+    .then(res => res.json())
+    .then(data => {
+      setPerros(data.filter(e => e.dueño === user.nombre))
+      console.log(data)
+    })
+  }, [])
 
   const handelSubmit = (e) => {
     e.preventDefault()
   }
 
+  const handleClick = (perro) => {
+    navigate(`${user.ispay ? '/registromascotasdic'  : '/inscripcionesdic'}`, {replace: true, state: perro}, )
+  }
+  
   const handleSearch = () => {
+  }
+  
+  const nav = () => {
+    navigate('/inscripcionesdic', {replace: true} )
   }
 
   return (
     <Container>
-      <div className='nav_box'>
-        <div>
-          <center><h3>Registrar Perros para su DIC</h3></center>
-        </div>
-        <form onSubmit={handelSubmit}>
-          <div>
-            <p>Raza: </p>
-            <input value={form.razadic} onChange={(e) => setForm(y => ({...y, razadic: e.target.value}))} type='text' placeholder='Raza del perro' />
-          </div>
-          <div>
-            <p>Tamaño: </p>
-            <input value={form.tamañodic} onChange={(e) => setForm(y => ({...y, tamañodic: e.target.value}))} type='number' placeholder='Tamaño del perro' />
-          </div>
-          <div>
-            <p>Nombre: </p>
-            <input value={form.nombredic} onChange={(e) => setForm(y => ({...y, nombredic: e.target.value}))} type='text' placeholder='Nombre del perro' />
-          </div>
-          <div>
-            <p>Genero: </p>
-            <input value={form.generodic} onChange={(e) => setForm(y => ({...y, generodic: e.target.value}))} type='text' placeholder='Género del perro' />
-          </div>
-          <div>
-            <p>Años: </p>
-            <input value={form.añosdic} onChange={(e) => setForm(y => ({...y, añosdic: e.target.value}))}  type='number' placeholder="Años del perro"/>
-          </div>
-          <div>
-            <p>Vacunado: </p>
-            <input value={form.vacunadodic} onChange={(e) => setForm(y => ({...y, vacunadodic: e.target.value}))}  type='text' placeholder="Si o no" />
-          </div>
-          <div>
-            <p>Dueño: </p>
-            <input value={form.dueñodic} onChange={(e) => setForm(y => ({...y, dueñodic: e.target.value}))}  type='text' placeholder="Telefono del dueño" />
-          </div>
-          <div>
-            <p>Imagen del Perro: </p>
-            <input value={form.imagendic} onChange={(e) => setForm(y => ({...y, imagendic: e.target.value}))} type='file' />
-          </div>
-        </form>
-        <Link to='/registromascotasdic' className="button_añadirdic">AÑADIR</Link>
-        <Link to='/registromascotas' className="button_verdic">VER DIC</Link>
-        <Link to='/' className="button_iniciodic">INICIO</Link>
-      </div>
       <div className="tablebox">
         <Table bordered hover className="table">
           <thead>
             <tr>
               <th>#</th>
-              <th>Raza</th>
-              <th>Tamaño</th>
               <th>Nombre</th>
-              <th>Genero</th>
+              <th>Raza</th>
               <th>Años</th>
               <th>Vacunado</th>
-              <th>Dueño</th>
-              <th>Imágen del Perro</th>
+              <th>Contacto</th>
+              <th>Genero</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {perros.map((perro, index) => (
               <tr key={index}>
-                <th>{perro.id}</th>
-                <th>{perro.razadic}</th>
-                <th>{perro.tamañodic}</th>
-                <th>{perro.nombredic}</th>
-                <th>{perro.generodic}</th>
-                <th>{perro.añosdic}</th>
-                <th>{perro.vacunadodic}</th>
-                <th>{perro.dueñodic}</th>
-                <th>{perro.imagendic}</th>
+                <th>{index}</th>
+                <th>{perro.nombre}</th>
+                <th>{perro.raza}</th>
+                <th>{perro.edad}</th>
+                <th>{perro.vacunado ? 'si' : 'no'}</th>
+                <th>{perro.numero}</th>
+                <th>{perro.genero}</th>
+                <th className="btn_div">
+                  {
+                    !user.ispay &&
+                    <button onClick={nav} className="button">AÑADIR DIC</button>
+                  }
+                  <button onClick={() => handleClick(perro)}  className="button">VER DIC</button>
+                </th>
               </tr>
             ))}
           </tbody>
@@ -103,10 +80,29 @@ const RegisterDic = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 92vh;
+  height: 100%;
   display: flex;
   background-color: #2E4960;
   color: white;
+  .btn_div {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .button {
+    background-color: #49be25;
+    height: 32px;
+    color: black;
+    border-radius: 8px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(0, 144, 255, 1);
+    }
+  }
 
   .tablebox {
     width: 100%;

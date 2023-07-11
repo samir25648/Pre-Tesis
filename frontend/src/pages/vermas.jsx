@@ -1,45 +1,56 @@
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import styled from "styled-components"
 import { Table } from "react-bootstrap"
 import { Button } from "../components/Button"
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom"
-
-const data = [
-  { id: 1, raza: "Pastor Alemán", tamaño: "65cm",genero: "masculino", años: 6, vacunado: "si", hogar: "si" },
-  { id: 2, raza: "Golden Retrieve", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 3, raza: "Pastor Alemán", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 4, raza: "Golden Retriever", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 5, raza: "Pastor Alemán", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 6, raza: "Pastor Alemán", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 7, raza: "Pastor Alemán", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 8, raza: "Pastor Alemán", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 9, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 10, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 11, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 12, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 13, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 14, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 15, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 16, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 17, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 18, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 19, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 20, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 21, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-  { id: 22, raza: "Pastor aleman", tamaño: "65cm", genero: "masculino", años: 6, vacunado: "si", hogar: "no" },
-]
 
 
 const VerMas = () => {
-  const [perros, setPerros] = useState(data)
+  const user = JSON.parse(localStorage.getItem('user'))
+  const [perros, setPerros] = useState([])
   const [form, setForm] = useState({})
+  const [razaFiltro, setRazaFiltro] = useState('');
+  const [hogarFiltro, setHogarFiltro] = useState('');
+
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    fetch('http://localhost:3000/dogadoption')
+    .then(res => res.json())
+    .then(data => {
+      setPerros(data)
+      console.log(data)
+    })
+  }, [])
 
   const handelSubmit = (e) => {
     e.preventDefault()
+    handleSearch()
   }
 
   const handleSearch = () => {
+    const perrosFiltrados = perros.filter((perro) =>
+      perro.adoptado === (hogarFiltro === 'si' )
+    );
+    setPerros(perrosFiltrados);
   }
+
+  const handleNext = (perro) => {
+    navigate("/registromascotas", { replace: true, state: perro});
+  }
+
+  const handleClearFilter = () => {
+    setHogarFiltro('');
+    // Restaurar los perros originales sin filtrar
+    fetch('http://localhost:3000/dogadoption')
+      .then(res => res.json())
+      .then(data => {
+        setPerros(data);
+      });
+  };
+
 
   return (
     <Container>
@@ -50,7 +61,7 @@ const VerMas = () => {
         <form onSubmit={handelSubmit}>
           <div>
             <p>Raza: </p>
-            <input value={form.raza} onChange={(e) => setForm(y => ({...y, raza: e.target.value}))} type='text' placeholder='Raza del perro' />
+            <input value={razaFiltro} onChange={(e) => setRazaFiltro(e.target.value)} type='text' placeholder='Raza del perro' />
           </div>
           <div>
             <p>Tamaño: </p>
@@ -70,11 +81,12 @@ const VerMas = () => {
           </div>
           <div>
             <p>Hogar: </p>
-            <input value={form.hogar} onChange={(e) => setForm(y => ({...y, hogar: e.target.value}))}  type='text' placeholder="Si o no" />
+            <input value={hogarFiltro} onChange={(e) => setHogarFiltro(e.target.value)}  type='text' placeholder="Si o no" />
           </div>
         </form>
         <div>
           <Button title='buscar' onClick={handleSearch}/>
+          <Button title='Limpiar filtros' onClick={handleClearFilter}/>
         </div>
       </div>
       <div className="tablebox">
@@ -82,11 +94,12 @@ const VerMas = () => {
           <thead>
             <tr>
               <th>#</th>
+              <th>Nombre</th>
               <th>Raza</th>
-              <th>Tamaño</th>
-              <th>Genero</th>
               <th>Años</th>
               <th>Vacunado</th>
+              <th>Contacto</th>
+              <th>Genero</th>
               <th>Hogar</th>
               <th>Acciones</th>
             </tr>
@@ -95,14 +108,18 @@ const VerMas = () => {
             {perros.map((perro, index) => (
               <tr key={index}>
                 <th>{perro.id}</th>
+                <th>{perro.nombre}</th>
                 <th>{perro.raza}</th>
-                <th>{perro.tamaño}</th>
+                <th>{perro.edad}</th>
+                <th>{perro.vacunado ? 'si' : 'no'}</th>
+                <th>{perro.numero}</th>
                 <th>{perro.genero}</th>
-                <th>{perro.años}</th>
-                <th>{perro.vacunado}</th>
-                <th>{perro.hogar}</th>
+                <th>{perro.adoptado ? 'si': 'no'}</th>
                 <th>
-                  <Link to='/perroadoptado' className='button_adoptar'>Adoptar</Link>
+                  {
+                    !perro.adoptado &&
+                    <button className="button_adoptar" onClick={() => handleNext(perro)}>Adoptar</button>
+                  }
                 </th>
               </tr>
             ))}

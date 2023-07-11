@@ -1,19 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import DogText from "../../assets/dog2.png";
+import DogText from "../../assets/dog1.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-const DogBox = ({ nombre, descripcion, tags }) => {
-  const showAlert = () => {
-    alert("¡¡Perro adoptado!! Contacte con el número del dueño");
-  };
+const DogBox = ({ perro, nombre, descripcion, tags }) => {
+  const token = localStorage.getItem('token')
+  const user = JSON.parse(localStorage.getItem('user'))
+  const navigate = useNavigate();
+  console.log(user.nombre)
+
+  const handleClick = () => {
+    fetch('http://localhost:3000/dogadoption/'+perro._id, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({...perro, dueño: user.nombre, adoptado: true})
+    })
+    navigate("/registerdic", { replace: true }); // Redirigir al usuario a '/'
+  }
+
 
   return (
     <Container className="dogbox">
       <img src={DogText} alt="Imagen de perro" />
       <div className="sub_dogbox">
         <h3>{nombre}</h3>
-        <p>{descripcion}</p>
         <div className="categories">
           {tags.map((value, index) => (
             <p key={index}>{value}</p>
@@ -21,7 +35,7 @@ const DogBox = ({ nombre, descripcion, tags }) => {
         </div>
         <h1></h1>
         <ButtonsContainer>
-          <Link className="button_adoptame" onClick={showAlert}>ADOPTAME :)</Link>
+          <button onClick={handleClick} className="button_adoptame">ADOPTAME :)</button>
           <Link to='/inscripcionesdic' className="button_inscribir">INSCRIBIR DIC</Link>
         </ButtonsContainer>
         <h1></h1>

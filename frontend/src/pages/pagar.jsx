@@ -5,34 +5,47 @@ import MasterCard from '../assets/mastercad.png'
 import Visa from '../assets/visa.png'
 import NotaAdesiva from '../assets/notaadesiva.png'
 import { Link } from 'react-router-dom'
+import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const Pagar = () => {
+  const user = JSON.parse(localStorage.getItem('user'))
   const [nombre, setNombre] = useState("")
   const [apellido, setApellido] = useState("")
   const [usuario, setUsuario] = useState("")
-  const [correo, setCorreo] = useState("")
-  const [contraseña, setContraseña] = useState("")
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const onChangeState = () => {
+    if(nombre && apellido && usuario){
+      window.localStorage.removeItem('user')
+      window.localStorage.setItem('user', JSON.stringify({...user, ispay: true}));
 
+      navigate("/registerdic", { replace: true });
+    }else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Aviso',
+        text: 'Completa el formulario con tus datos',
+      })
+    }
   }
 
   return ( 
     <Container>
       <div className='mainbox'>
-        <form onSubmit={handleSubmit}>
+        <form >
           <div className='formbox'>
             <div>
               <p>Numero de tarjeta *</p>
-              <input value={nombre} onChange={setNombre} placeholder='Ingrese N° de tarjeta' required/>
+              <input value={nombre}  type='number' onChange={(e) => setNombre(e.target.value)} placeholder='Ingrese N° de tarjeta' required/>
             </div>
             <div>
               <p>Fecha de Caducidad *</p>
-              <input value={apellido} onChange={setApellido} placeholder='MM/AA' required/>
+              <input value={apellido} onChange={(e) => setApellido(e.target.value)} placeholder='MM/AA' required/>
             </div>
             <div>
               <p>Codigo de Verificacion * </p>
-              <input value={usuario} onChange={setUsuario} placeholder='CVC' required/>
+              <input value={usuario}  type='number'  onChange={(e) => setUsuario(e.target.value)} placeholder='CVC' required/>
             </div>
           </div>
           <div className='tarjetas'>
@@ -49,7 +62,7 @@ const Pagar = () => {
             <img src={NotaAdesiva} alt='notaadesiva' width={300}/>
           </div>
         </form>
-        <Link to='/registerdic' className='inscribir' width='200px'>INSCRIBIR</Link>       </div>
+        <button onClick={() => onChangeState()} className='inscribir' width='200px'>INSCRIBIR</button>       </div>
     </Container>
   )
 }
@@ -92,6 +105,7 @@ const Container = styled.div`
       }
 
       input {
+        color: #000;
         border: none;
         height: 40px;
         width: 300px;

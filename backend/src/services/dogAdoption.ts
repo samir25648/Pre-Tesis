@@ -5,14 +5,17 @@ const createDogAdoption = async (data: DogAdoption) => {
   const responseCreate = await DogAdoptionModel.create(data);
   return responseCreate;
 };
+
 const getDogAdoptions = async () => {
   const responseGet = await DogAdoptionModel.find({});
   return responseGet;
 };
+
 const getDogAdoption = async (id: string) => {
   const responseGet = await DogAdoptionModel.findOne({ _id: id });
   return responseGet;
 };
+
 const updateDogAdoption = async (id: string, data: DogAdoption) => {
   const responseUpdate = await DogAdoptionModel.findOneAndUpdate(
     { _id: id },

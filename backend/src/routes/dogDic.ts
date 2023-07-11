@@ -5,21 +5,30 @@ import {
   updateDogDicCtrl,
   deleteDogDicCtrl,
   getDogDicsCtrl,
+  uploadImageCtrl
 } from "../controllers/dogDic";
-
+import fileUpload from "express-fileupload";
 import { checkJwt } from "../middleware/session";
 
 const router = Router();
 
-router.get("/",checkJwt, getDogDicsCtrl);
+router.get("/", checkJwt, getDogDicsCtrl);
 
+router.get("/:id", checkJwt, getDogDicCtrl);
 
-router.get("/:id",checkJwt, getDogDicCtrl);
+router.post("", postDogDicCtrl)
 
-router.post("/",checkJwt, postDogDicCtrl);
+router.post(
+  "/",
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./uploads",
+  }),
+  uploadImageCtrl
+);
 
-router.put("/:id",checkJwt, updateDogDicCtrl);
+router.put("/:id", checkJwt, updateDogDicCtrl);
 
-router.delete("/:id",checkJwt, deleteDogDicCtrl);
+router.delete("/:id", checkJwt, deleteDogDicCtrl);
 
 export { router };

@@ -7,7 +7,10 @@ const DogDicSchema = new Schema<DogDic>({
   genero: { type: String, required: true },
   dueño: { type: String, required: true },
   edad: { type: Number, required: true },
-  imagen: { type: String, required: true },
+  image: {
+    secure_url: String,
+    public_id: String,
+  },
   raza: { type: String, required: true },
   vacacion: { type: Boolean, required: true },
 });

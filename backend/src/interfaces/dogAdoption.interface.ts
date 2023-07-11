@@ -6,7 +6,7 @@ export interface DogAdoption {
   raza: string;
   vacacion: boolean;
   edad: number;
-  imagen: string;
+  image: any;
   adoptado: boolean;
   dueño: string;
 }

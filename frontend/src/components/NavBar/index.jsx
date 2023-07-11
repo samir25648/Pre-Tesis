@@ -2,12 +2,28 @@ import styled, { keyframes } from "styled-components";
 import { fadeIn, slideInDown, slideInLeft } from "react-animations";
 import Logo from '../../assets/logo.png';
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 const slideInDownAnimation = keyframes`${slideInDown}`;
 const slideInLeftAnimation = keyframes`${slideInLeft}`;
 
 const NavBar = ({ className }) => {
+  const [user, setuser] = useState(() => JSON.parse(localStorage.getItem('user')) || {})
+  const [token, settoken] = useState(() => localStorage.getItem('token') || "")
+  const navigation = useNavigate()
+  console.log(user, token)
+
+  const closeSesion = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    settoken("")
+    setuser("")
+    navigate('/', {replace: true} )
+  }
+
+
   return (
     <Nav className={className}>
       <div className="navbar_mainbox">
@@ -19,11 +35,22 @@ const NavBar = ({ className }) => {
           <NavLink to="/inscripcionesdic" animationDelay="0.2s" className="nav_link">Inscripción DIC</NavLink>
           <NavLink to="/addperroadopcion" animationDelay="0.3s" className="nav_link">Poner Perros en Adopción</NavLink>
           <NavLink to="/nosotros" animationDelay="0.4s" className="nav_link">Sobre Nosotros</NavLink>
+          <NavLink to="/registerdic" animationDelay="0.4s" className="nav_link">Ver Adoptados</NavLink>
         </div>
       </div>
       <div className="navbar_secbox">
-        <NavLink to="/login" animationDelay="0.5s" className="nav_link">Acceder</NavLink>
-        <NavLink to="/registrar" animationDelay="0.6s" className="nav_link">Crear Cuenta</NavLink>
+        {
+          token !== ""
+          ? 
+          <>
+            <p className="name">{user.usuario} </p>
+            <p className="link" onClick={closeSesion}>Cerrar Sesion</p>
+          </>
+          : <>
+            <NavLink to="/login" animationDelay="0.5s" className="nav_link">Acceder</NavLink>
+            <NavLink to="/registrar" animationDelay="0.6s" className="nav_link">Crear Cuenta</NavLink>
+          </>
+        }
       </div>
     </Nav>
   );
@@ -92,6 +119,18 @@ export default styled(NavBar)`
     @media (max-width: 800px) {
       flex-direction: column;
       align-items: flex-start;
+    }
+  }
+
+  .name {
+    color: #000;
+  }
+
+  .link {
+    cursor: pointer;
+    color: #000;
+    &:hover {
+      color: red;
     }
   }
 

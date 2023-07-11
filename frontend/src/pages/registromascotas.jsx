@@ -3,9 +3,14 @@ import SearchBar from "../components/SearchBar"
 import MainBg from '../assets/mainbg.png'
 import DogBox from "../components/DogBox/index"
 import { useState } from "react"
+import { useLocation } from 'react-router-dom';
 
 const RegistroMascotas = () => {
   const [search, setSearch] = useState("")
+  const location = useLocation();
+  const perros = location.state;
+  console.log(perros)
+
 
   return (
     <Container>
@@ -17,9 +22,10 @@ const RegistroMascotas = () => {
           />
         </div>
         <DogBox 
-          nombre='Kaiser' 
-          descripcion={'kaiser es un perro de raza Golden Retriever tiene 3 años Sus ojos son color negros. Siempre lleva su collar con su nombre y su pelaje es eondulado'}
-          tags={['Perro', 'Macho', '941387498', 'Golden Retriever', 'Vacunado', '3 años']}
+          perro={perros}
+          nombre={perros.nombre}
+          descripcion={`es un perro de raza Golden Retriever tiene 3 años Sus ojos son color negros. Siempre lleva su collar con su nombre y su pelaje es eondulado`}
+          tags={['Perro',perros.genero, perros.numero, perros.raza, perros.vacacion ? 'Vacunado': 'No Vacunado', perros.edad + ' años']}
         />
       </div>
     </Container>

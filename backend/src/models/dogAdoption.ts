@@ -6,9 +6,12 @@ const DogAdoptionSchema = new Schema<DogAdoption>({
   nombre: { type: String, required: true },
   genero: { type: String, required: true },
   adoptado: { type: Boolean, required: true },
-  dueño: { type: String, required: true },
+  dueño: { type: String },
   edad: { type: Number, required: true },
-  imagen: { type: String, required: true },
+  image: {
+    secure_url: String,
+    public_id: String,
+  },
   raza: { type: String, required: true },
   vacacion: { type: Boolean, required: true },
 });

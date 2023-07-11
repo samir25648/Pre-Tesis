@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import DogText from "../../assets/dog1.png";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Dog2Box = ({ nombre, descripcion, tags }) => {
   const showAlert = () => {
-    alert("Se le ha advertido a todas las veterinarias y guarderias de la perdida");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Aviso',
+      text: 'Se le ha advertido a todas las veterinarias y guarderias de la perdida',
+    })
   };
 
   return (
@@ -21,7 +25,7 @@ const Dog2Box = ({ nombre, descripcion, tags }) => {
         </div>
         <h1></h1>
         <ButtonsContainer>
-          <Link className="button_perdido" onClick={showAlert}>¡¡¡PERDIDO!!!</Link>
+          <button className="button_perdido" onClick={showAlert}>¡¡¡PERDIDO!!!</button>
         </ButtonsContainer>
         <h1></h1>
       </div>
@@ -34,7 +38,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: no-wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 50px;
   img {
     width: 364px;
     height: 366px;
@@ -53,6 +57,9 @@ const Container = styled.div`
     .categories {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      p {
+        margin-left: 20px;
+      }
     }
 
     .button_adoptame {

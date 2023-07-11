@@ -3,9 +3,14 @@ import SearchBar from "../components/SearchBar"
 import MainBg from '../assets/mainbg.png'
 import Dog2Box from "../components/DogBox/index2"
 import { useState } from "react"
+import { useLocation } from 'react-router-dom';
+
 
 const RegistroMascotasDic = () => {
   const [search, setSearch] = useState("")
+  const location = useLocation();
+  const perro = location.state;
+  console.log(perro)
 
   return (
     <Container>
@@ -17,9 +22,8 @@ const RegistroMascotasDic = () => {
           />
         </div>
         <Dog2Box 
-          nombre='Kaiser' 
-          descripcion={'kaiser es un perro de raza Golden Retriever tiene 3 años Sus ojos son color negros. Siempre lleva su collar con su nombre y su pelaje es eondulado'}
-          tags={['Perro', 'Macho', '941387498', 'Golden Retriever', 'Vacunado', '3 años']}
+          nombre={perro.nombre}
+          tags={['Perro',perro.genero, perro.numero, perro.raza, perro.vacacion ? 'Vacunado': 'No Vacunado', perro.edad + ' años']}
         />
       </div>
     </Container>

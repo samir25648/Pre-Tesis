@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fadeIn, slideInDown, bounce } from 'react-animations';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [nombre, setNombre] = useState('');
@@ -11,13 +12,14 @@ const Register = () => {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     fetch('http://localhost:3000/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ nombre, apellido, usuario, correo, contraseña }),
+      body: JSON.stringify({ nombre, apellido, usuario, correo, password: contraseña }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -34,6 +36,7 @@ const Register = () => {
       .then((data) => {
         // Manejar la respuesta de la API exitosa
         console.log(data);
+        navigate("/login", { replace: true });
       })
       .catch((error) => {
         console.log(error);

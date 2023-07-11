@@ -6,6 +6,6 @@ export interface DogDic {
   raza: string;
   vacacion: boolean;
   edad: number;
-  imagen: string;
+  image: any;
   dueño: string;
 }

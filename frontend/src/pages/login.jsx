@@ -1,42 +1,42 @@
 import styled from 'styled-components';
 import { Button } from '../components/Button';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:3000/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ usuario, password }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        if (response.ok) {
-          // La solicitud fue exitosa
-          return response.json();
-        } else {
-          // La solicitud falló
-          throw new Error('Error al iniciar sesión. Código de estado: ' + response.status);
+    setError("");
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ usuario, password }),
+        headers: {
+          'Content-Type': 'application/json'
         }
-      })
-      .then(data => {
-        // Manejar la respuesta de la API exitosa
-        console.log(data);
-      })
-      .catch(error => {
-        // Manejar errores de la solicitud
-        setError(error.message);
       });
-  };
 
+      if (!response.ok) {
+        throw new Error('Error al iniciar sesión. Código de estado: ' + response.status);
+      }
+
+      const data = await response.json();
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify({...data.user, ispay: false}));
+
+      navigate("/", { replace: true }); // Redirigir al usuario a '/'
+    } catch (error) {
+      setError(error.message);
+    }
+  };
   return (
     <Container>
       <div className='mainbox'>
